@@ -47,7 +47,7 @@ function stateTypeAHead(){
 
 function getCityData(){
     var state = $("#newState").val();
-    
+    var citydata = [];
 //    $.ajax({
 //       type: "GET",
 //       dataType: 'json',
@@ -68,7 +68,7 @@ function getCityData(){
 //           console.log("error");
 //       }
 //    });
-    
+    CurrCityTypeAHead(citydata);
 
 }
 
