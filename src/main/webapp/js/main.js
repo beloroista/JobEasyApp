@@ -45,36 +45,59 @@ function stateTypeAHead(){
     
 }
 
-function getCityData(){
-    var state = $("#newState").val();
+
+
+
+
     
-//    $.ajax({
-//       type: "GET",
-//       dataType: 'json',
-//       contentType: 'text/plain',
-//       xhrFields: {
-//   
-//        withCredentials: false
-//        },
-//
-//        headers: {
-//   
-//       },
-//       url:"http://api.sba.gov/geodata/city_links_for_state_of/pa.json",
-//       success:function(data){
-//           console.log(data);
-//       },
-//       error: function() {
-//           console.log("error");
-//       }
-//    });
+
+/**
+//abandoned city list with duplication , no proxy needed
+
+function getCityData1(){
+    state = $("#newState").val();
+    var geocodingAPI = "http://gomashup.com/json.php?fds=geo/usa/zipcode/state/"+state+"&jsoncallback=?";
+    var cities =[];
     
+$.getJSON(geocodingAPI, function (json) {
+    
+$.each( json.result, function(index) {
+    // this["City"] is the name of each city
+      cities[index]=this["City"];
+      });
+      
+      $('#div2').text(cities);
+});   
 
 }
+**/
 
+function getCityData(){
+    state = $("#newState").val();
+     var jobcity = {state: state};
 
+    $.ajax({
+        url: "GetCities",
+        type: 'POST',
+        data: JSON.stringify(jobcity),
+        dataType:'json',  
+       // contentType: 'text/html;charset=UTF-8',
+//        mimeType: 'application/json',
+ 
+        success: function (data) {
+            // data is the jsonarray of cities
+         $('#div1').text(state);
+         $('#div2').text("");
+         $('#div2').text(data);
+        },
+     error: function() {
+           console.log("error");
+       }
+    });
+   
+ 
 
-    
+}
 
 $(document).ready(function(){
      $("#addSkill").hide();
