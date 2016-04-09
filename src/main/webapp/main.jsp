@@ -98,6 +98,14 @@
                 </div>
             </div>
             
+                        <!--        test area for city list-->
+
+            <button onclick="getCityData()"> test city list</button>
+            
+            <div id="div1"> state</div>
+           <div id="div2"> cities</div>
+            <!--        test area for city list-->
+            
             <div class="container result"></div>
         </div>
     </body>
