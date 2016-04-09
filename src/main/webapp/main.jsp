@@ -41,7 +41,8 @@
             <h1>Test</h1>
         </div>
         
-        <div class="container content"ng-controller="searchController">
+        <div class="container content" ng-controller="searchController">
+            <hr>
             <div class="container search container-fluid search">
                 <!--search-->
                 <div class="search_section row" id = "jobTitle">

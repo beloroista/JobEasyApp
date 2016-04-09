@@ -57,16 +57,28 @@ app.controller('searchController', ['$scope', function searchController($scope) 
     //search function
     var results = [];
     $scope.search = function(){
+        var jobTitle = $("#JobTitle").val();
+        var jobLoc = getLoc();
         
         
-    }
-        
+    };
+    function getLoc(){
+        var index = 0;
+        var res = [];
+        while(index < locationList.length){
+            console.log(locationList[index].state);
+            res.push(locationList[index].state);
+            index ++;
+        }
+        return res;
+    };
     
         
 }]);
 
 
 
+//typeahead related
 function stateTypeAHead(){
     $("#newState").typeahead({source:states});
     

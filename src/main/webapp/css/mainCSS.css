@@ -16,3 +16,10 @@ and open the template in the editor.
 .search_section{
     margin-top: 20px;
 }
+
+.content{
+    border-radius: 71px 71px 71px 71px;
+-moz-border-radius: 71px 71px 71px 71px;
+-webkit-border-radius: 71px 71px 71px 71px;
+border: 18px solid #f5f0f5;
+}
