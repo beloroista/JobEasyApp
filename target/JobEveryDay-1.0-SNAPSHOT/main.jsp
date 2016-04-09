@@ -41,62 +41,76 @@
             <h1>Test</h1>
         </div>
         
-        <div class="container content">
-            <div class="container search container-fluid">
+        <div class="container content"ng-controller="searchController">
+            <div class="container search container-fluid search">
                 <!--search-->
-                <div class="search_section row" id = "jobTitle" ng-controller="jobTitleController">
-                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
+                <div class="search_section row" id = "jobTitle">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
                         <span class="title" style="font-size: 20px;font-family: 'Montserrat', sans-serif;  padding-left: 40%">Job Title:</span>
                     </div>
                     <div class="col-lg-5 col-md-6 col-sm-6 col-xs-5">
                         <label class="sr-only">Job Title</label>
                         <input type="jobtitle" class="form-control" id="JobTitle" placeholder='Job title...'> 
                     </div>
-                    <div class="col-lg-1 col-md-2 col-sm-3 col-xs-2">
+<!--                    <div class="col-lg-1 col-md-2 col-sm-3 col-xs-2">
                         <button type="submit" class="btn ">Search</button>
-                    </div>
+                    </div>-->
                 </div>
                 <!--skills-->
-                <div class="search_section row" id ="skillType" ng-controller="skillTypeController">
-                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
+                <div class="search_section row" id ="skillType">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
                         <span class="title" style="font-size: 20px;font-family: 'Montserrat', sans-serif;  padding-left: 40%">Skills:</span>
                     </div>
                     <div class="col-lg-10 col-md-9 col-sm-9 col-xs-7">
                         
                         <span ng-repeat="skill in skillList" class="label label-primary " style=" display: inline-block;margin: 5px;font-size: 15px;">{{skill}}</span>
                           
-                        <a href="" ng-click=""><i ng-click="add()" class="fa fa-plus fa-lg"></i></a>
+                        <a href="" ng-click=""><i ng-click="addSkillButton()" class="fa fa-plus fa-lg"></i></a>
                         
                         <div class="row" id = "addSkill" style="margin-top: 10px">
                             <div class="col-lg-6 col-md-8 col-sm-8 col-xs-8">
                             <label class="sr-only">Job Title</label>
                             <input ng-model="newSkill" type="jobtitle" class="form-control" id="" placeholder='Job title...'> 
                             </div>
-                            <div class="col-lg-1 col-md-2 col-sm-3 col-xs-2">
+                            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
                                 <button type="button" class="btn" ng-click="addSkill()">Add</button>
 
                             </div>
                             <div class="col-lg-1 col-md-2 col-sm-3 col-xs-2">
-                                <button type="button" class="btn" ng-click="hide()">Hide</button>
+                                <button type="button" class="btn" ng-click="hideSkillButton()">Hide</button>
                             </div>
                         </div>
                     </div>
                     
                 </div>
-                <div class=" search_section row" id="location" ng-controller="locationController">
-                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-5">
+                <div class=" search_section row" id="location">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
                         <span class="title" style="font-size: 20px;font-family: 'Montserrat', sans-serif;  padding-left: 40%">Locations:</span>
                     </div>
                     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-2" id="bloodhound">
 <!--                        <label class="sr-only">Job Title</label>-->
-                        <input ng-model="addState" type="" class="form-control typeahead" id="newState" placeholder='State...'> 
+                        <input  type="" class="form-control typeahead" id="newState" placeholder='State...'> 
                     </div>
-                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-2" id="bloodhound">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3" id="bloodhound">
 <!--                        <label class="sr-only">Job Title</label>-->
-                        <input ng-model="addCity" type="" class="form-control typeahead" id="newCity" placeholder='City...'> 
+                        <input  type="" class="form-control typeahead" id="newCity" placeholder='City...'> 
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" id="bloodhound">
+                        <a href="" ng-click=""><i ng-click="addLocationButton()" style="margin:5px;" class="fa fa-plus fa-2x"></i></a>
+
+                    </div>
+                    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2" id="locationTap" >
+                        <span ng-repeat="location in getlocationList()" class="label label-primary " style=" display: inline-block;font-size: 17px;margin: 5px;">{{location}}</span>
                     </div>
                 </div>
+                <div class="container-fluid">
+<!--                    <div class="col-lg-2 col-md-3 col-xs-3 col-sm-3" >-->
+                        <button type="button" ng-click="search()" class="btn" style="width:30%;margin-left: 35%;margin-top: 20px">Search</button>
+                    <!--</div>-->
+                </div>
             </div>
+            
+            <hr>
             
             <div class="container result"></div>
         </div>

@@ -6,7 +6,8 @@
 
 
 var skills = ["Java","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
-var locations =[];
+
+
 var states = ["AL","AK","AS","AZ","AR","CA","CO","CT","DE","DC","FM","FL","GA","GU","HI","ID","IL","IN","IA","KS","KY",
     "LA","ME","MH","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND" ,"MP" ,"OH","OK","OR","PW",
     "PA","PR","RI","SC","SD","TN","TX","UT", "VT","VI","VA","WA","WV","WI","WY"];
@@ -14,70 +15,98 @@ var states = ["AL","AK","AS","AZ","AR","CA","CO","CT","DE","DC","FM","FL","GA","
 
 var app = angular.module("MyJobEveryDayApp", []);
 
-app.controller('jobTitleController', ['$scope', function jobTitleController($scope) {
-    
-}]);
 
-app.controller('skillTypeController', ['$scope', function skillTypeController($scope) {
+app.controller('searchController', ['$scope', function searchController($scope) {
     
     $scope.skillList = skills;
-   
-    
-    $scope.add = function(){
+
+    $scope.addSkillButton = function(){
        $("#addSkill").show();   
     };
-    $scope.hide = function(){
+    $scope.hideSkillButton = function(){
        $("#addSkill").hide(); 
     };
     $scope.addSkill = function(){
-        console.log("as");
         $scope.skillList.push($scope.newSkill);
+
     };
+    
+    var locations =[];
+    var locationList = [];
+    console.log("len="+locations.length);
+    $scope.addLocationButton = function(){
+        
+        locationList.push({state:$("#newState").val(),city:$("#newCity").val()});
+        locations.push($("#newCity").val()+", "+$("#newState").val());
+        console.log(locations);
+
+    };
+    
+    $scope.getlocationList = function(){
+       if(locations.length === 0){
+           $("#locationTap").hide();
+           //console.log("iniLocation");
+       }else{
+            $("#locationTap").show();
+       }
+        return locations;
+    };
+    
+    
+    
+    //search function
+    var results = [];
+    $scope.search = function(){
+        
+        
+    }
+        
+    
+        
 }]);
 
-app.controller('locationController', ['$scope', function locationController($scope) {
-    
-    
-}]);
+
 
 function stateTypeAHead(){
     $("#newState").typeahead({source:states});
     
 }
 
-function getCityData(){
-    var state = $("#newState").val();
-    var citydata = [];
-//    $.ajax({
-//       type: "GET",
-//       dataType: 'json',
-//       contentType: 'text/plain',
-//       xhrFields: {
-//   
-//        withCredentials: false
-//        },
-//
-//        headers: {
-//   
-//       },
-//       url:"http://api.sba.gov/geodata/city_links_for_state_of/pa.json",
-//       success:function(data){
-//           console.log(data);
-//       },
-//       error: function() {
-//           console.log("error");
-//       }
-//    });
-    CurrCityTypeAHead(citydata);
-
+function cityTypeAHead(){
+    $("#newCity").focus(function(){
+        console.log("focus");
+        getCityData();
+    });
+    
 }
 
+function getCityData(){
+    var state = $("#newState").val();
+    console.log(state);
+    var jobcity = {state: state};
+    $.ajax({
+        url: "GetCities",
+        type: 'POST',
+        data: JSON.stringify(jobcity),
+        dataType:'json',  
+        success: function (data) {
+            $("#newCity").typeahead('destroy');
+            $("#newCity").typeahead({source:data});
+            console.log(state+","+data[0]);
+            
+        },
+     error: function() {
+           console.log("error");
+       }
+    });
+   
+ 
 
-
-    
+}
 
 $(document).ready(function(){
      $("#addSkill").hide();
      stateTypeAHead();
-     getCityData();
+     cityTypeAHead();
+
 });
