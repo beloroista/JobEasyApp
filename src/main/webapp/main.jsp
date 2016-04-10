@@ -38,12 +38,13 @@
     </head>
     <body>
         <div class="header">
-            <h1>Test</h1>
+            <h1><i class="fa fa-spinner fa-pulse fa-2x"></i></h1>
         </div>
         
         <div class="container content" ng-controller="searchController">
-            <hr>
+           
             <div class="container search container-fluid search">
+                <hr>
                 <!--search-->
                 <div class="search_section row" id = "jobTitle">
                     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
@@ -88,11 +89,11 @@
                     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
                         <span class="title" style="font-size: 20px;font-family: 'Montserrat', sans-serif;  padding-left: 40%">Locations:</span>
                     </div>
-                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-2" id="bloodhound">
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-2" id="bloodhound">
 <!--                        <label class="sr-only">Job Title</label>-->
                         <input  type="" class="form-control typeahead" id="newState" placeholder='State...'> 
                     </div>
-                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3" id="bloodhound">
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3" id="bloodhound">
 <!--                        <label class="sr-only">Job Title</label>-->
                         <input  type="" class="form-control typeahead" id="newCity" placeholder='City...'> 
                     </div>
@@ -100,7 +101,7 @@
                         <a href="" ng-click=""><i ng-click="addLocationButton()" style="margin:5px;" class="fa fa-plus fa-2x"></i></a>
 
                     </div>
-                    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2" id="locationTap" >
+                    <div class="col-lg-1 col-md-4 col-sm-2 col-xs-2" id="locationTap" >
                         <span ng-repeat="location in getlocationList()" class="label label-primary " style=" display: inline-block;font-size: 17px;margin: 5px;">{{location}}</span>
                     </div>
                 </div>
@@ -109,11 +110,94 @@
                         <button type="button" ng-click="search()" class="btn" style="width:30%;margin-left: 35%;margin-top: 20px">Search</button>
                     <!--</div>-->
                 </div>
+                <hr>
             </div>
             
-            <hr>
+           
             
-            <div class="container result"></div>
+            <div class="container result">
+                
+                <div class="res_wrap row">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
+                        <div style="margin-left: 50%;height: 100%;width:auto;vertical-align: middle">
+                            <img style="max-width: 100%;margin-top: 5%;" src="img/ibm-squarelogo.png" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6">
+                        <div class="res_title container">Software Engineer</div>
+                        <div class="res_company container" >IBM</div>
+                        <div class="res_time container">Date: {{ '2012-04-01' | date:'fullDate' }}</div>  
+                        <div class="res_location container">Location: Pittsburgh,PA</div>  
+                        <div class="res_des container">
+                            <p style="overflow: hidden">Java Software Developer – Application Development Team*. Strong Java skills and object oriented design experience, including working knowledge of core libraries...</p>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <hr>
+                
+                <div class="res_wrap row">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
+                        <div style="margin-left: 50%;height: 100%;width:auto;vertical-align: middle">
+                            <img style="max-width: 100%;margin-top: 5%;" src="img/ibm-squarelogo.png" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6">
+                        <div class="res_title container">Software Engineer</div>
+                        <div class="res_company container" >IBM</div>
+                        <div class="res_time container">Date: {{ '2012-04-01' | date:'fullDate' }}</div>  
+                        <div class="res_location container">Location: Pittsburgh,PA</div>  
+                        <div class="res_des container">
+                            <p style="overflow: hidden">Java Software Developer – Application Development Team*. Strong Java skills and object oriented design experience, including working knowledge of core libraries...</p>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <hr>
+                
+                <div class="res_wrap row">
+                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
+                        <div style="margin-left: 50%;height: 100%;width:auto;vertical-align: middle">
+                            <img style="max-width: 100%;margin-top: 5%;" src="img/ibm-squarelogo.png" alt=""/>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6">
+                        <div class="res_title container">Software Engineer</div>
+                        <div class="res_company container" >IBM</div>
+                        <div class="res_time container">Date: {{ '2012-04-01' | date:'fullDate' }}</div>  
+                        <div class="res_location container">Location: Pittsburgh,PA</div>  
+                        <div class="res_des container">
+                            <p style="overflow: hidden">Java Software Developer – Application Development Team*. Strong Java skills and object oriented design experience, including working knowledge of core libraries...</p>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                <hr>
+                
+                <!--page-->
+                <div class="container btn-group res_page" role="group" aria-label="First group"> 
+                    <button type="button" class="btn btn-default">1</button>
+                    <button type="button" class="btn btn-default">2</button> 
+                    <button type="button" class="btn btn-default">3</button> 
+                    <button type="button" class="btn btn-default">4</button> 
+                    <button type="button" class="btn btn-default"><i class="fa fa-angle-right fa-lg"></i></button> 
+                </div>
+            </div>
         </div>
+        
+        <div class="footer">
+            <div>
+            <hr>
+            <p class="text-muted text-center">Copyright @ MyJob. All rights reserved. </p>
+        </div>
+    </div>
+        <span id="top-link-block" hidden="" style="display: block;">
+            <a href="#top" class="well well-sm" onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+                <i class="glyphicon glyphicon-chevron-up"></i>Top
+            </a>
+        </span>
     </body>
 </html>

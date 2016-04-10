@@ -116,9 +116,22 @@ function getCityData(){
 
 }
 
+//backtoTop
+function backToTop(){
+    var amountScrolled = 300;
+
+        $(window).scroll(function() {
+            if ( $(window).scrollTop() > amountScrolled ) {
+   		$('#top-link-block').fadeIn('fast');
+            } else {
+   		$('#top-link-block').fadeOut('fast');
+            }
+         });
+}
+
 $(document).ready(function(){
      $("#addSkill").hide();
      stateTypeAHead();
      cityTypeAHead();
-
+     backToTop();
 });

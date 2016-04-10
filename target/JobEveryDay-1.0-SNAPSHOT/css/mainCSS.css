@@ -17,9 +17,64 @@ and open the template in the editor.
     margin-top: 20px;
 }
 
-.content{
+.search{
     border-radius: 71px 71px 71px 71px;
--moz-border-radius: 71px 71px 71px 71px;
--webkit-border-radius: 71px 71px 71px 71px;
-border: 18px solid #f5f0f5;
+    -moz-border-radius: 71px 71px 71px 71px;
+    -webkit-border-radius: 71px 71px 71px 71px;
+    border: 10px dotted #f5f0f5;
+
+    -webkit-box-shadow: -2px -1px 99px -12px rgba(247,230,247,1);
+    -moz-box-shadow: -2px -1px 99px -12px rgba(247,230,247,1);
+    box-shadow: -2px -1px 99px -12px rgba(247,230,247,1);
+}
+
+
+//result
+.result{
+    margin-top: 20px;
+    
+}
+.res_wrap{
+    margin-top: 40px;
+    font-family: Helvetica, Arial, sans-serif; font-size: 15px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;
+
+}
+.res_title{
+    margin-left:0px;
+    padding-left:0px;
+    font-size: 18px;
+    color:#337ab7;
+}
+.res_company{
+    margin-left:0px;
+    font-family: Helvetica, Arial, sans-serif; font-size: 15px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;
+    padding-left:0px;
+}
+.res_time{
+    margin-left:0px;
+    padding-left:0px;
+    font-size: 12px
+}
+.res_location{
+    margin-left:0px;
+    padding-left:0px;
+    font-size: 13px;
+    color: #888;
+    
+}
+.res_des{
+    width: 100%;
+    padding-left:0px;
+        
+}
+.res_page{
+    margin-left:80%;
+}
+
+
+
+#top-link-block {
+    position: fixed; /* keeps it on the bottom once in view */
+    bottom: 18px; /* height of link element */
+    right: 10px; /* padding from the left side of the window */
 }
