@@ -188,16 +188,17 @@
             </div>
         </div>
         
-        <div class="footer">
-            <div>
-            <hr>
-            <p class="text-muted text-center">Copyright @ MyJob. All rights reserved. </p>
-        </div>
-    </div>
+        
         <span id="top-link-block" hidden="" style="display: block;">
             <a href="#top" class="well well-sm" onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
                 <i class="glyphicon glyphicon-chevron-up"></i>Top
             </a>
         </span>
+        <div class="footer">
+            <div>
+            <hr>
+            <p class="text-muted text-center">Copyright @ MyJob. All rights reserved. </p>
+            </div>
+        </div>
     </body>
 </html>
