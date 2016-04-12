@@ -128,6 +128,21 @@ function backToTop(){
             }
          });
 }
+function getQuery(){
+  
+    var myParams = {st:"jobsite",publisher:"5788115038535202",//fixed
+      jt:"fulltime","q":"java python",sort:"relevance",start:"0",limit :"20",l:"pittsburgh"+","+"pa",
+      userip:"1.2.3.4"};
+    var queryAPI="http://api.indeed.com/ads/apisearch?v=2&useragent=Mozilla/%2F4.0%28Firefox%29&format=json&callback=?&"+$.param(myParams,true);
+   
+    $('#div3').text(queryAPI);    
+    $.getJSON(queryAPI, function (returnedjosn) {    
+    // returnedjosn is the josn  file retrieved
+    // returned json file template:
+   // http://api.indeed.com/ads/apisearch?v=2&useragent=Mozilla/%2F4.0%28Firefox%29&format=json&callback=?&st=jobsite&publisher=5788115038535202&jt=fulltime&q=java&sort=relevance&start=0&limit=20&l=pittsburgh%2Cpa&userip=1.2.3.4
+    $('#div4').text(returnedjosn.results[0]["jobtitle"]);
+    });  
+}
 
 $(document).ready(function(){
      $("#addSkill").hide();
