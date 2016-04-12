@@ -37,6 +37,12 @@
         
     </head>
     <body>
+        <!--indeed api test-->
+        <button onclick="getQuery()">indeed api test</button>>
+        <div id="div3">url</div>
+        <div id="div4">job title</div>
+           <!--indeed api test-->
+           
         <div class="header">
             <h1><i class="fa fa-spinner fa-pulse fa-2x"></i></h1>
         </div>
@@ -187,6 +193,9 @@
                 </div>
             </div>
         </div>
+        
+ 
+
         
         
         <span id="top-link-block" hidden="" style="display: block;">
