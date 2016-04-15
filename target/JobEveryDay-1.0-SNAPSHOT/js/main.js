@@ -16,7 +16,7 @@ var states = ["AL","AK","AS","AZ","AR","CA","CO","CT","DE","DC","FM","FL","GA","
 var app = angular.module("MyJobEveryDayApp", []);
 
 
-app.controller('searchController', ['$scope', function searchController($scope) {
+app.controller('searchController', ['$scope','$http', function searchController($scope,$http) {
     
     $scope.skillList = skills;
 
@@ -51,29 +51,69 @@ app.controller('searchController', ['$scope', function searchController($scope) 
        }
         return locations;
     };
-    
-    
-    
-    //search function
-    var results = [];
-    $scope.search = function(){
-        var jobTitle = $("#JobTitle").val();
-        var jobLoc = getLoc();
-        
-        
-    };
     function getLoc(){
         var index = 0;
         var res = [];
         while(index < locationList.length){
-            console.log(locationList[index].state);
+            //console.log(locationList[index].state);
             res.push(locationList[index].state);
             index ++;
         }
         return res;
     };
     
+
+    //search function
+    $scope.results = [];
+    $scope.ini = function(){
+        var jt = "fulltime";
+        var q = "software engineer";
+        var sort ="relevance";
+        var start = "0";
+        var limit = "10";
+        var l = "pittsburgh,pa";
+        var userip = "1.2.3.4";
         
+        $http({
+            method : "GET",
+            url : "/GetResults",
+            params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
+            }).then(function(response) {
+                $scope.results = response.data.results;
+
+            }, function myError(response) {
+                console.log("error");
+            });
+
+        console.log($scope.results);
+       
+    };
+    
+    $scope.search = function(){
+        var jt = "fulltime";
+        var q = $("#JobTitle").val();
+        var sort ="relevance";
+        var start = "0";
+        var limit = "10";
+        var l = $("#newState").val();
+        var userip = "1.2.3.4";
+        
+        $http({
+            method : "GET",
+            url : "/GetResults",
+            params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
+            }).then(function(response) {
+                $scope.results = response.data.results;
+
+            }, function myError(response) {
+                console.log("error");
+            });
+
+        console.log($scope.results);
+    };
+    
+    
+    
 }]);
 
 
@@ -129,9 +169,16 @@ function backToTop(){
          });
 }
 
+
+function iniPage(){
+   
+   
+}
+
 $(document).ready(function(){
      $("#addSkill").hide();
      stateTypeAHead();
      cityTypeAHead();
      backToTop();
+     //iniPage();
 });

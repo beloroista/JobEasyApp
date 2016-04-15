@@ -51,20 +51,21 @@ public class GetCities extends HttpServlet {
         cbuf[amtread]='\0';
         String invalue = new String(cbuf,0,amtread);
         
+        //String state1= jo.getString("state");
         try{
             jo=new JSONObject(invalue);
 
             String state= jo.getString("state");
             String URL="http://api.sba.gov/geodata/city_links_for_state_of/"+state+".json";                       
-            //System.out.println("123");
+            System.out.println("123");
             JSONArray raw=new JSONArray(getJsonString(URL));
             JSONArray cities = new JSONArray(); 
               
+            
             for (int i = 0; i < raw.length(); i++) {
                 JSONObject child = raw.getJSONObject(i);                
                 cities.put(child.getString("name"));
             }
-            //System.out.println("~~~~~~~~~~~"+cities.length()+"!!!!!!!!");
             out.println(cities.toString()); 
                     
             }

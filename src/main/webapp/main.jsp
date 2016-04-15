@@ -38,13 +38,13 @@
     </head>
     <body>
         <!--indeed api test-->
-        <button onclick="getQuery()">indeed api test</button>>
+<!--        <button onclick="getQuery()">indeed api test</button>>
         <div id="div3">url</div>
-        <div id="div4">job title</div>
+        <div id="div4">job title</div>-->
            <!--indeed api test-->
            
         <div class="header">
-            <h1><i class="fa fa-spinner fa-pulse fa-2x"></i></h1>
+            <h1 style="margin-left: 50%"><i class="fa fa-spinner fa-pulse fa-lg"></i></h1>
         </div>
         
         <div class="container content" ng-controller="searchController">
@@ -60,9 +60,7 @@
                         <label class="sr-only">Job Title</label>
                         <input type="jobtitle" class="form-control" id="JobTitle" placeholder='Job title...'> 
                     </div>
-<!--                    <div class="col-lg-1 col-md-2 col-sm-3 col-xs-2">
-                        <button type="submit" class="btn ">Search</button>
-                    </div>-->
+
                 </div>
                 <!--skills-->
                 <div class="search_section row" id ="skillType">
@@ -121,21 +119,21 @@
             
            
             
-            <div class="container result">
+            <div class="container result" ng-init="ini()">
                 
-                <div class="res_wrap row">
+                <div class="res_wrap row" ng-repeat="res in results">
                     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
                         <div style="margin-left: 50%;height: 100%;width:auto;vertical-align: middle">
                             <img style="max-width: 100%;margin-top: 5%;" src="img/ibm-squarelogo.png" alt=""/>
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6">
-                        <div class="res_title container">Software Engineer</div>
-                        <div class="res_company container" >IBM</div>
-                        <div class="res_time container">Date: {{ '2012-04-01' | date:'fullDate' }}</div>  
-                        <div class="res_location container">Location: Pittsburgh,PA</div>  
+                        <a href="{{res.url}}"><div class="res_title container">{{res.jobtitle}}</div></a>
+                        <div class="res_company container" >{{res.company}}</div>
+                        <div class="res_time container">Date: {{res.formattedRelativeTime}}</div>  
+                        <div class="res_location container">Location: {{res.formattedLocation}}</div>  
                         <div class="res_des container">
-                            <p style="overflow: hidden">Java Software Developer – Application Development Team*. Strong Java skills and object oriented design experience, including working knowledge of core libraries...</p>
+                            <p style="overflow: hidden">{{res.snippet}}</p>
                         </div>
                     </div>
                     
@@ -143,45 +141,7 @@
                 </div>
                 <hr>
                 
-                <div class="res_wrap row">
-                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
-                        <div style="margin-left: 50%;height: 100%;width:auto;vertical-align: middle">
-                            <img style="max-width: 100%;margin-top: 5%;" src="img/ibm-squarelogo.png" alt=""/>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6">
-                        <div class="res_title container">Software Engineer</div>
-                        <div class="res_company container" >IBM</div>
-                        <div class="res_time container">Date: {{ '2012-04-01' | date:'fullDate' }}</div>  
-                        <div class="res_location container">Location: Pittsburgh,PA</div>  
-                        <div class="res_des container">
-                            <p style="overflow: hidden">Java Software Developer – Application Development Team*. Strong Java skills and object oriented design experience, including working knowledge of core libraries...</p>
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <hr>
                 
-                <div class="res_wrap row">
-                    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
-                        <div style="margin-left: 50%;height: 100%;width:auto;vertical-align: middle">
-                            <img style="max-width: 100%;margin-top: 5%;" src="img/ibm-squarelogo.png" alt=""/>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-6">
-                        <div class="res_title container">Software Engineer</div>
-                        <div class="res_company container" >IBM</div>
-                        <div class="res_time container">Date: {{ '2012-04-01' | date:'fullDate' }}</div>  
-                        <div class="res_location container">Location: Pittsburgh,PA</div>  
-                        <div class="res_des container">
-                            <p style="overflow: hidden">Java Software Developer – Application Development Team*. Strong Java skills and object oriented design experience, including working knowledge of core libraries...</p>
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <hr>
                 
                 <!--page-->
                 <div class="container btn-group res_page" role="group" aria-label="First group"> 
