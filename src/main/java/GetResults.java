@@ -53,15 +53,16 @@ public class GetResults extends HttpServlet {
         String sort = request.getParameter("sort");
         String start = request.getParameter("start");
         String limit = request.getParameter("limit");
-        String l = request.getParameter("l");
+        String l = request.getParameter("l").trim().toLowerCase();
       
             try{
               
                 String URL="http://api.indeed.com/ads/apisearch?v=2&useragent=Mozilla/%2F4.0%28Firefox%29&format=json&callback=?&st=jobsite&publisher=5788115038535202&jt"+jt+"&q="+q+"&sort="+sort+"&start="+start+"&limit="+limit+"&l="+l+"&userip=1.2.3.4";                       
                 
+                System.out.println(URL);
                 
                 String a = getJsonString(URL);
-                System.out.println(a);
+                //System.out.println(a);
 
                 out1.println(a); 
 

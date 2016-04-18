@@ -92,7 +92,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
     
     $scope.search = function(){
         if($scope.page !== 0){
-            $scope.page === 0;
+            $scope.page === 10;
         }
         var jt = "fulltime";
         var q = $("#JobTitle").val();
@@ -101,7 +101,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
         var limit = "10";
         var l = $scope.locations;
         var userip = "1.2.3.4";
-        console.log($scope.locations);
+        console.log(l);
         $http({
             method : "GET",
             url : "/GetResults",
