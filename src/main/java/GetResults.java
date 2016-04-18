@@ -48,7 +48,6 @@ public class GetResults extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out1 = response.getWriter();
-        //System.out.println(request.getParameter("l"));
         String jt = request.getParameter("jt");
         String q = request.getParameter("q");
         String sort = request.getParameter("sort");

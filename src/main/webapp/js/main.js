@@ -31,31 +31,31 @@ app.controller('searchController', ['$scope','$http', function searchController(
 
     };
     
-    var locations =[];
-    var locationList = [];
-    console.log("len="+locations.length);
+    $scope.locations =[];
+    $scope.locationList = [];
+    
     $scope.addLocationButton = function(){
         
-        locationList.push({state:$("#newState").val(),city:$("#newCity").val()});
-        locations.push($("#newCity").val()+", "+$("#newState").val());
-        console.log(locations);
+        $scope.locationList.push({state:$("#newState").val(),city:$("#newCity").val()});
+        $scope.locations.push($("#newCity").val()+", "+$("#newState").val());
+        
 
     };
-    
+   
     $scope.getlocationList = function(){
-       if(locations.length === 0){
+       if($scope.locations.length === 0){
            $("#locationTap").hide();
            //console.log("iniLocation");
        }else{
             $("#locationTap").show();
        }
-        return locations;
+        return $scope.locations;
     };
+    
     function getLoc(){
         var index = 0;
         var res = [];
         while(index < locationList.length){
-            //console.log(locationList[index].state);
             res.push(locationList[index].state);
             index ++;
         }
@@ -63,8 +63,9 @@ app.controller('searchController', ['$scope','$http', function searchController(
     };
     
 
-    //search function
+    //search function and ini page 
     $scope.results = [];
+    
     $scope.ini = function(){
         var jt = "fulltime";
         var q = "software engineer";
@@ -87,17 +88,20 @@ app.controller('searchController', ['$scope','$http', function searchController(
 
         console.log($scope.results);
        
-    };
+    }; 
     
     $scope.search = function(){
+        if($scope.page !== 0){
+            $scope.page === 0;
+        }
         var jt = "fulltime";
         var q = $("#JobTitle").val();
         var sort ="relevance";
         var start = "0";
         var limit = "10";
-        var l = $("#newState").val();
+        var l = $scope.locations;
         var userip = "1.2.3.4";
-        
+        console.log($scope.locations);
         $http({
             method : "GET",
             url : "/GetResults",
@@ -112,6 +116,37 @@ app.controller('searchController', ['$scope','$http', function searchController(
         console.log($scope.results);
     };
     
+    //update results
+    $scope.page = 10;
+    $scope.loadmore = function(){
+        $scope.page = $scope.page + 5;
+        var jt = "fulltime";
+        var q = $("#JobTitle").val();
+        var sort ="relevance";
+        var start = "0";
+        var limit = $scope.page;
+        var l = $scope.locations;
+        var userip = "1.2.3.4";
+        //console.log($scope.locations);
+        console.log($scope.page);
+        var beforeLen = $scope.results.length;
+        $http({
+            method : "GET",
+            url : "/GetResults",
+            params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
+            }).then(function(response) {
+                $scope.results = response.data.results;
+                console.log(response.data.results);
+                var nowLen = $scope.results.length;
+                if(nowLen === beforeLen){
+                    alert("No more data");
+                }
+            }, function myError(response) {
+                console.log("error");
+            });
+
+        console.log($scope.results);
+    };
     
     
 }]);
@@ -122,10 +157,12 @@ app.controller('searchController', ['$scope','$http', function searchController(
 function stateTypeAHead(){
     $("#newState").typeahead({source:states});
     
+        
+    
 }
 
 function cityTypeAHead(){
-    $("#newCity").focus(function(){
+    $("#newCity").one('focus',function(){
         console.log("focus");
         getCityData();
     });
@@ -175,10 +212,10 @@ function iniPage(){
    
 }
 
-$(document).ready(function(){
+$(document).ready(function(){   
      $("#addSkill").hide();
      stateTypeAHead();
-     cityTypeAHead();
+     //cityTypeAHead();
      backToTop();
-     //iniPage();
+
 });

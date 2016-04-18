@@ -14,6 +14,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
         <!--JQuery-->
         <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <!--Bootstrap-->
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -79,7 +80,7 @@
                             <input ng-model="newSkill" type="jobtitle" class="form-control" id="" placeholder='Job title...'> 
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
-                                <button type="button" class="btn" ng-click="addSkill()">Add</button>
+                                <button type="button" class="btn btn-default" ng-click="addSkill()">Add</button>
 
                             </div>
                             <div class="col-lg-1 col-md-2 col-sm-3 col-xs-2">
@@ -95,7 +96,7 @@
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-2" id="bloodhound">
 <!--                        <label class="sr-only">Job Title</label>-->
-                        <input  type="" class="form-control typeahead" id="newState" placeholder='State...'> 
+                        <input  type="" class="form-control typeahead" id="newState" placeholder='State...' onchange="cityTypeAHead()"> 
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3" id="bloodhound">
 <!--                        <label class="sr-only">Job Title</label>-->
@@ -136,21 +137,17 @@
                             <p style="overflow: hidden">{{res.snippet}}</p>
                         </div>
                     </div>
-                    
-                    
+                     
                 </div>
-                <hr>
+                
+                <button ng-click="loadmore()" type="button" class="btn" id="loadMoreButton" style="width:30%;margin-left: 35%;margin-top: 20px">Load More</button>
+                
+               
                 
                 
                 
                 <!--page-->
-                <div class="container btn-group res_page" role="group" aria-label="First group"> 
-                    <button type="button" class="btn btn-default">1</button>
-                    <button type="button" class="btn btn-default">2</button> 
-                    <button type="button" class="btn btn-default">3</button> 
-                    <button type="button" class="btn btn-default">4</button> 
-                    <button type="button" class="btn btn-default"><i class="fa fa-angle-right fa-lg"></i></button> 
-                </div>
+                
             </div>
         </div>
         
@@ -169,5 +166,10 @@
             <p class="text-muted text-center">Copyright @ MyJob. All rights reserved. </p>
             </div>
         </div>
+           
+        <!--dialogs-->
+<!--        <div id="dialog" title="Basic dialog">
+            <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+        </div>-->
     </body>
 </html>
