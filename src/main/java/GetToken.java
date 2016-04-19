@@ -84,7 +84,7 @@ public class GetToken extends HttpServlet {
                 String fintoken= (String)jo.get("access_token");
                                 System.out.println(fintoken);
 
-                String profile=this.getProfile("https://api.linkedin.com/v1/people/~?format=json", fintoken);
+                String profile=this.getProfile("https://api.linkedin.com/v1/people/~:(public-profile-url,id,positions)?format=json", fintoken);
                 System.out.println(profile);
      
 
