@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +31,26 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+
+import java.io.BufferedReader;  
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.InputStreamReader;  
+import java.net.URL;  
+import org.json.simple.parser.JSONParser;
+
+
+
+
+
+
 
 
 /**
@@ -82,12 +104,22 @@ public class GetToken extends HttpServlet {
 
                 JSONObject jo=new JSONObject(res);
                 String fintoken= (String)jo.get("access_token");
-                                System.out.println(fintoken);
+                
 
-                String profile=this.getProfile("https://api.linkedin.com/v1/people/~:(public-profile-url,id,positions)?format=json", fintoken);
-                System.out.println(profile);
-     
+             String profile=getProfile("https://api.linkedin.com/v1/people/~:(id,public-profile-url,num-connections,picture-url)?format=json", fintoken);
+             JSONParser parser = new JSONParser();
+            JSONObject jofile = (JSONObject) parser.parse(profile);
+             //JSONObject jofile=new JSONObject(profile);
+         String pfurl=jofile.getString("publicProfileUrl");
+         String uu=getSkill(pfurl);
+         System.out.println(uu);
+         JSONArray skills=new JSONArray(getSkill(pfurl));
+         
+             
 
+                
+                
+                
 
         } 
         catch(Exception e){
@@ -95,7 +127,7 @@ public class GetToken extends HttpServlet {
         }
             out1.close();
   }
-    public String getProfile(String url,String token) throws MalformedURLException, IOException{
+    public static String getProfile(String url,String token) throws MalformedURLException, IOException{
         
         URLConnection connection = new URL(url).openConnection();
         connection.setRequestProperty("Accept-Charset", "UTF-8");
@@ -115,6 +147,14 @@ public class GetToken extends HttpServlet {
         String x=sb.toString();
         return x; 
     }
+public  static String getSkill(String pfurl) throws Exception {  
+        String command = "C:\\Users\\Chi\\Documents\\GitHub\\JobEasyApp\\python"+pfurl;
+        Process p = Runtime.getRuntime().exec(command);
+        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String ret = in.readLine();
+        return ret; 
+    }
+
     public String getJsonString(String urlPath) throws Exception {  
         URL url = new URL(urlPath);  
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();  
