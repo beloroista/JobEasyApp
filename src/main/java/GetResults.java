@@ -53,7 +53,7 @@ public class GetResults extends HttpServlet {
         String sort = request.getParameter("sort");
         String start = request.getParameter("start");
         String limit = request.getParameter("limit");
-        String l = request.getParameter("l").trim().toLowerCase();
+        String l = request.getParameter("l");
       
             try{
               
