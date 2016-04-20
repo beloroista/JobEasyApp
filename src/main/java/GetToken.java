@@ -107,8 +107,8 @@ public class GetToken extends HttpServlet {
                 
 
              String profile=getProfile("https://api.linkedin.com/v1/people/~:(id,public-profile-url,num-connections,picture-url)?format=json", fintoken);
-             JSONParser parser = new JSONParser();
-            JSONObject jofile = (JSONObject) parser.parse(profile);
+            
+            JSONObject jofile = new JSONObject(profile);
              //JSONObject jofile=new JSONObject(profile);
          String pfurl=jofile.getString("publicProfileUrl");
          String uu=getSkill(pfurl);
@@ -127,7 +127,7 @@ public class GetToken extends HttpServlet {
         }
             out1.close();
   }
-    public static String getProfile(String url,String token) throws MalformedURLException, IOException{
+    public String getProfile(String url,String token) throws MalformedURLException, IOException{
         
         URLConnection connection = new URL(url).openConnection();
         connection.setRequestProperty("Accept-Charset", "UTF-8");
@@ -147,9 +147,11 @@ public class GetToken extends HttpServlet {
         String x=sb.toString();
         return x; 
     }
-public  static String getSkill(String pfurl) throws Exception {  
-        String command = "C:\\Users\\Chi\\Documents\\GitHub\\JobEasyApp\\python"+pfurl;
-        Process p = Runtime.getRuntime().exec(command);
+public String getSkill(String pfurl) throws Exception {  
+        String command = "C:\\Users\\Chi\\Documents\\GitHub\\JobEasyApp\\python\\ptest.py";
+        String cmds=command+"   "+pfurl;
+        //System.out,println(cmds);
+        Process p = Runtime.getRuntime().exec(cmds);
         BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
         String ret = in.readLine();
         return ret; 
