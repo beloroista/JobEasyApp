@@ -77,7 +77,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
         
         $http({
             method : "GET",
-            url : "/GetResults",
+            url : "GetResults",
             params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
             }).then(function(response) {
                 $scope.results = response.data.results;
@@ -87,6 +87,8 @@ app.controller('searchController', ['$scope','$http', function searchController(
             });
 
         console.log($scope.results);
+        
+      //  getToken();
        
     }; 
     
@@ -102,9 +104,10 @@ app.controller('searchController', ['$scope','$http', function searchController(
         var l = $scope.locations;
         var userip = "1.2.3.4";
         console.log(l);
+        
         $http({
             method : "GET",
-            url : "/GetResults",
+            url : "GetResults",
             params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
             }).then(function(response) {
                 $scope.results = response.data.results;
@@ -132,7 +135,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
         var beforeLen = $scope.results.length;
         $http({
             method : "GET",
-            url : "/GetResults",
+            url : "GetResults",
             params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
             }).then(function(response) {
                 $scope.results = response.data.results;
@@ -219,3 +222,57 @@ $(document).ready(function(){
      backToTop();
 
 });
+
+$.urlParam = function(name){
+	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	return results[1] || 0;
+};
+
+function getToken(){
+   // $("#token").text("777");
+   // $("#testcode").text("66666666666");
+    //$("#testcode").text($.urlParam("code")+"___"+$.urlParam("state"));
+   
+    var jobtoken = {grant_type: "authorization_code",code:$.urlParam("code"),redirect_uri:"http://localhost:8080/JobEasyApp/main.jsp",client_id:"77a9ivlgasumg4",client_secret:"fR5zPUnYqkAHv5TP"};
+        $.ajax({
+        url: "GetToken",
+        type: 'GET',
+        data: {url:"www.linkedin.com/uas/oauth2/accessToken?"+$.param(jobtoken)},
+       // dataType:'json',  
+        success: function (data) {
+            $("#testcode").text("66666666666");
+            $("#token").text(data);  
+        //     $("#expire").text(data.expires_in );  
+        $("#expire").text("www.linkedin.com/uas/oauth2/accessToken?"+$.param(jobtoken));
+        },
+     error: function() {
+          $("#expire").text("www.linkedin.com/uas/oauth2/accessToken?"+$.param(jobtoken));
+           console.log("error");
+       }
+    });
+////$http({
+//    method: 'POST',
+//    url: "www.linkedin.com/uas/oauth2/accessToken?"+$.param(jobtoken),
+//    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+//   // data: 'grant_type=authorization_code&code='+$.urlParam("code")+'&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2FJobEasyApp%2Fmain.jsp&client_id=77a9ivlgasumg4&client_secret=fR5zPUnYqkAHv5TP'
+//}).success(function (data) {
+//     $("#token").text("666");
+//});
+
+//$http({
+//    method: 'POST',
+//    url: 'www.linkedin.com/uas/oauth2/accessToken',
+//    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+//    transformRequest: function(obj) {
+//        var str = [];
+//        for(var p in obj)
+//        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+//        return str.join("&");
+//    },
+//    data: jobtoken
+//}).success(function () {
+//    $("#token").text("666");
+//});
+
+
+}
