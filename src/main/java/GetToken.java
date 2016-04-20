@@ -106,14 +106,17 @@ public class GetToken extends HttpServlet {
                 String fintoken= (String)jo.get("access_token");
                 
 
-             String profile=getProfile("https://api.linkedin.com/v1/people/~:(id,public-profile-url,num-connections,picture-url)?format=json", fintoken);
+                String profile=getProfile("https://api.linkedin.com/v1/people/~:(id,public-profile-url,num-connections,picture-url)?format=json", fintoken);
             
-            JSONObject jofile = new JSONObject(profile);
+                JSONObject jofile = new JSONObject(profile);
              //JSONObject jofile=new JSONObject(profile);
-         String pfurl=jofile.getString("publicProfileUrl");
-         String uu=getSkill(pfurl);
-         System.out.println(uu);
-         JSONArray skills=new JSONArray(getSkill(pfurl));
+                String pfurl=jofile.getString("publicProfileUrl");
+                String strskill=getSkill(pfurl);
+                System.out.println(strskill);
+                JSONArray skills=new JSONArray(getSkill(pfurl));
+                
+             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/main.jsp");
+            dispatcher.forward(request,response);
          
              
 
@@ -148,8 +151,8 @@ public class GetToken extends HttpServlet {
         return x; 
     }
 public String getSkill(String pfurl) throws Exception {  
-        String command = "C:\\Users\\Chi\\Documents\\GitHub\\JobEasyApp\\python\\ptest.py";
-        String cmds=command+"   "+pfurl;
+        String command = "python C:\\Users\\Chi\\Documents\\GitHub\\JobEasyApp\\python\\ptest.py ";
+        String cmds=command+" "+pfurl;
         //System.out,println(cmds);
         Process p = Runtime.getRuntime().exec(cmds);
         BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
