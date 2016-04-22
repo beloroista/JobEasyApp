@@ -18,7 +18,7 @@ var app = angular.module("MyJobEveryDayApp", []);
 
 app.controller('searchController', ['$scope','$http', function searchController($scope,$http) {
     
-    $scope.skillList = skills;
+    $scope.skillList = ["Java","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
 
     $scope.addSkillButton = function(){
        $("#addSkill").show();   
@@ -28,40 +28,76 @@ app.controller('searchController', ['$scope','$http', function searchController(
     };
     $scope.addSkill = function(){
         $scope.skillList.push($scope.newSkill);
-
+        skills.push($scope.newSkill);
     };
     
-    $scope.locations =[];
-    $scope.locationList = [];
     
-    $scope.addLocationButton = function(){
+    $scope.deleteSkillButton = function(){
+        var minus = $("#minusSkill");
+        minus.after("<div id='delWrap'><span style='margin-left:15px'>Please Click to delete the skill you want! and click <span> <a id = 'finish' ng-click='finish()' style='margin-left:20px'><i ng-click= 'finish()' class='fa fa-check fa-lg'></i></a><span style='margin-left:15px'> to finish <span></div>");
+        $(".skills").attr("class","skills label label-danger");
+        $(".skills").attr("ng-click","alert('hahah');");
+        console.log("1");
+        $scope.remove = function(array, index){
+            console.log("2");
+            array.splice(index, 1);
+        };
         
-        $scope.locationList.push({state:$("#newState").val(),city:$("#newCity").val()});
-        $scope.locations.push($("#newCity").val()+", "+$("#newState").val());
+        $(".skills").click(function(){
+            $(this).attr("style","text-decoration: line-through;background-color:grey;font-size: 15px;display: inline-block;margin: 5px;  display:none");
+            
+            
+            var value = this.innerHTML;
+            console.log(value);
+            for(var i = 0 ;i < $scope.skillList.length;i++){
+                if(value === $scope.skillList[i]){
+                    //$scope.skillList.push("hhh");
+                    delete $scope.skillList[i];
+                }
+            }
+            console.log($scope.skillList);
+        });
         
+        
+        $("#finish").click(function(){
+            $("#delWrap").hide();
+            $(".skills").attr("class","skills label label-primary  ng-binding ng-scope");
+             $(".skills").unbind();
+        });
 
-    };
-   
-    $scope.getlocationList = function(){
-       if($scope.locations.length === 0){
-           $("#locationTap").hide();
-           //console.log("iniLocation");
-       }else{
-            $("#locationTap").show();
-       }
-        return $scope.locations;
-    };
     
-    function getLoc(){
-        var index = 0;
-        var res = [];
-        while(index < locationList.length){
-            res.push(locationList[index].state);
-            index ++;
-        }
-        return res;
-    };
     
+    };
+
+    
+//    $scope.addLocationButton = function(){
+//        
+//        $scope.locationList.push({state:$("#newState").val(),city:$("#newCity").val()});
+//        $scope.locations.push($("#newCity").val()+", "+$("#newState").val());
+//        
+//
+//    };
+//   
+//    $scope.getlocationList = function(){
+//       if($scope.locations.length === 0){
+//           $("#locationTap").hide();
+//           //console.log("iniLocation");
+//       }else{
+//            $("#locationTap").show();
+//       }
+//        return $scope.locations;
+//    };
+    
+
+    $scope.togg = function(){
+        var a = this;
+        var b = this.childNodes;
+        alert("asd");
+        console.log(a);
+        b.toggle(); 
+  
+       
+   };
 
     //search function and ini page 
     $scope.results = [];
@@ -77,7 +113,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
         
         $http({
             method : "GET",
-            url : "GetResults",
+            url : "/GetResults",
             params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
             }).then(function(response) {
                 $scope.results = response.data.results;
@@ -94,6 +130,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
     
     $scope.search = function(){
         if($scope.page !== 0){
+            console.log($scope.page);
             $scope.page === 10;
         }
         var jt = "fulltime";
@@ -101,13 +138,13 @@ app.controller('searchController', ['$scope','$http', function searchController(
         var sort ="relevance";
         var start = "0";
         var limit = "10";
-        var l = $scope.locations;
+        var l = $("#newCity").val()+","+$("#newState").val();
         var userip = "1.2.3.4";
         console.log(l);
         
         $http({
             method : "GET",
-            url : "GetResults",
+            url : "/GetResults",
             params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
             }).then(function(response) {
                 $scope.results = response.data.results;
@@ -128,21 +165,22 @@ app.controller('searchController', ['$scope','$http', function searchController(
         var sort ="relevance";
         var start = "0";
         var limit = $scope.page;
-        var l = $scope.locations;
+        var l = $("#newCity").val()+","+$("#newState").val();
         var userip = "1.2.3.4";
         //console.log($scope.locations);
         console.log($scope.page);
         var beforeLen = $scope.results.length;
         $http({
             method : "GET",
-            url : "GetResults",
+            url : "/GetResults",
             params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
             }).then(function(response) {
                 $scope.results = response.data.results;
                 console.log(response.data.results);
                 var nowLen = $scope.results.length;
+                console.log(nowLen);
                 if(nowLen === beforeLen){
-                    alert("No more data");
+//                    alert("No more data");
                 }
             }, function myError(response) {
                 console.log("error");
@@ -150,8 +188,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
 
         console.log($scope.results);
     };
-    
-    
+
 }]);
 
 
@@ -159,9 +196,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
 //typeahead related
 function stateTypeAHead(){
     $("#newState").typeahead({source:states});
-    
-        
-    
+   
 }
 
 function cityTypeAHead(){
@@ -209,10 +244,27 @@ function backToTop(){
          });
 }
 
+//save function  !!!! important
+function clickHeart(){
+    var a = this.childNodes;
+    var b = a[0];
+    var classNameNow = b.className;
+    if(classNameNow ==="fa fa-heart-o fa-2x"){
+       $(b).attr("class","fa fa-heart fa-2x");
+       //function to save this job, you can use ajax using jQuery or javascript to finish this function
+    }else{
+        $(b).attr("class","fa fa-heart-o fa-2x");
+       //function to unsave this job
+    
+    }
+    
+    
+}
 
-function iniPage(){
-   
-   
+function toggleInfo(){
+    var a = this;
+    
+    $(this).children(".res_company_details").children(".ratings").toggle();
 }
 
 $(document).ready(function(){   
@@ -220,59 +272,6 @@ $(document).ready(function(){
      stateTypeAHead();
      //cityTypeAHead();
      backToTop();
-
+     
 });
 
-$.urlParam = function(name){
-	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-	return results[1] || 0;
-};
-
-function getToken(){
-   // $("#token").text("777");
-   // $("#testcode").text("66666666666");
-    //$("#testcode").text($.urlParam("code")+"___"+$.urlParam("state"));
-   
-    var jobtoken = {grant_type: "authorization_code",code:$.urlParam("code"),redirect_uri:"http://localhost:8080/JobEasyApp/main.jsp",client_id:"77a9ivlgasumg4",client_secret:"fR5zPUnYqkAHv5TP"};
-        $.ajax({
-        url: "GetToken",
-        type: 'GET',
-        data: {url:"www.linkedin.com/uas/oauth2/accessToken?"+$.param(jobtoken)},
-       // dataType:'json',  
-        success: function (data) {
-            $("#testcode").text("66666666666");
-            $("#token").text(data);  
-        //     $("#expire").text(data.expires_in );  
-        $("#expire").text("www.linkedin.com/uas/oauth2/accessToken?"+$.param(jobtoken));
-        },
-     error: function() {
-          $("#expire").text("www.linkedin.com/uas/oauth2/accessToken?"+$.param(jobtoken));
-           console.log("error");
-       }
-    });
-////$http({
-//    method: 'POST',
-//    url: "www.linkedin.com/uas/oauth2/accessToken?"+$.param(jobtoken),
-//    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-//   // data: 'grant_type=authorization_code&code='+$.urlParam("code")+'&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2FJobEasyApp%2Fmain.jsp&client_id=77a9ivlgasumg4&client_secret=fR5zPUnYqkAHv5TP'
-//}).success(function (data) {
-//     $("#token").text("666");
-//});
-
-//$http({
-//    method: 'POST',
-//    url: 'www.linkedin.com/uas/oauth2/accessToken',
-//    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-//    transformRequest: function(obj) {
-//        var str = [];
-//        for(var p in obj)
-//        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-//        return str.join("&");
-//    },
-//    data: jobtoken
-//}).success(function () {
-//    $("#token").text("666");
-//});
-
-
-}

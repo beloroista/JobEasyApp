@@ -62,7 +62,7 @@ public class GetResults extends HttpServlet {
                 System.out.println(URL);
                 
                 String a = getJsonString(URL);
-                //System.out.println(a);
+                System.out.println(a);
 
                 out1.println(a); 
 
