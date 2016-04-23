@@ -6,18 +6,20 @@
 // not finished yet
 
 import java.io.Serializable;
-import java.util.HashMap;
+import org.json.JSONObject;
 
 
 public class userBean extends Object implements Serializable {
 
-    private HashMap<String,Integer> cart=null;
-    private boolean hasdb=false; // indicating the existence of product database
-    public String test="tessst";
+   
+    private JSONObject profile=null;
+   
 
-    public HashMap getcart() {return cart;}
-    public boolean getdb() {return hasdb;}
-    public void setcart(HashMap value) {this.cart = value;}
-    public void setdb() {this.hasdb = true;}
 
+
+   
+    public void setprofile(JSONObject value) {this.profile = value;}
+    
+    public JSONObject getprofile() {return profile;}
+   
 }
