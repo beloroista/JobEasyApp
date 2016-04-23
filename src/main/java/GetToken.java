@@ -102,14 +102,19 @@ public class GetToken extends HttpServlet {
                 String fintoken= (String)jo.get("access_token");
                 
 
-                String profile=getProfile("https://api.linkedin.com/v1/people/~:(id,public-profile-url,num-connections,picture-url)?format=json", fintoken);
+                String profile=getProfile("https://api.linkedin.com/v1/people/~:(id,first-name,last-name,location,public-profile-url,num-connections,picture-url)?format=json", fintoken);
             
                 JSONObject jofile = new JSONObject(profile);
-             //JSONObject jofile=new JSONObject(profile);
                 String pfurl=jofile.getString("publicProfileUrl");
                 String strskill=getSkill(pfurl);
                 System.out.println(strskill);
-                JSONArray skills=new JSONArray(getSkill(pfurl));
+                JSONArray skills=new JSONArray(strskill);
+                jofile.put("skills", skills);
+                
+                HttpSession session=request.getSession(true);
+                userBean ub =new userBean();
+                ub.setprofile(jofile);
+                session.setAttribute("ub",ub); 
                 
              RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/main.jsp");
             dispatcher.forward(request,response);
