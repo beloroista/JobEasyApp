@@ -5,7 +5,8 @@
  */
 
 
-var skills = ["Java","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
+var skills = ["Jat5va","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
+var id;
 
 
 var states = ["AL","AK","AS","AZ","AR","CA","CO","CT","DE","DC","FM","FL","GA","GU","HI","ID","IL","IN","IA","KS","KY",
@@ -18,7 +19,7 @@ var app = angular.module("MyJobEveryDayApp", []);
 
 app.controller('searchController', ['$scope','$http', function searchController($scope,$http) {
     
-    $scope.skillList = ["Java","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
+    $scope.skillList = ["Ja66va","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];;
 
     $scope.addSkillButton = function(){
        $("#addSkill").show();   
@@ -109,22 +110,37 @@ app.controller('searchController', ['$scope','$http', function searchController(
         var start = "0";
         var limit = "10";
         var l = "pittsburgh,pa";
-        var userip = "1.2.3.4";
+        var userip = "1.2.3.4";      
+
         
         $http({
             method : "GET",
-            url : "/GetResults",
+            url : "GetResults",
             params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
             }).then(function(response) {
-                $scope.results = response.data.results;
-
+                $scope.results = response.data.results;             
+                
             }, function myError(response) {
                 console.log("error");
             });
+            
+            console.log($scope.results);
+            // $scope.getCompanyDetail();
+            
+//        var url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=62289&t.k=h6nXqOo7VRC&action=employers&q="+"IBM"+"&userip=127.0.0.1&callback=JSON_CALLBACK";
+//        $http.jsonp(url)
+//        .success(function(data){
+//        $scope.no= data.response.employers[0].cultureAndValuesRating;
+//        $("#good").text($scope.no);
+//    });
+//        $.each( $scope.results, function() {
+//                
+//        this["tryit"]="96979";
+//        this["ddd3yit"]=$scope.no;
+//    });
+ //   $("#goo").text(JSON.stringify($scope.results));
 
-        console.log($scope.results);
         
-      //  getToken();
        
     }; 
     
@@ -188,6 +204,75 @@ app.controller('searchController', ['$scope','$http', function searchController(
 
         console.log($scope.results);
     };
+    
+    // get company detail
+    
+    $scope.getCompanyDetail=function (){
+        
+
+//        ////        var cultureAndValuesRating=data.response.employers[0].cultureAndValuesRating;
+//////          var seniorLeadershipRating=data.response.employers[0].seniorLeadershipRating;
+//////          var compensationAndBenefitsRating=data.response.employers[0].compensationAndBenefitsRating;
+//////          var careerOpportunitiesRating=data.response.employers[0].careerOpportunitiesRating;
+////          var imgurl=data.response.employers[0].squareLogo;
+
+        var url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=62289&t.k=h6nXqOo7VRC&action=employers&q="+"IBM"+"&userip=127.0.0.1&callback=JSON_CALLBACK";
+                $http.jsonp(url)
+                .success(function(data){
+//                   $scope.results["hate"]=JSON.stringify(data.response.employers[0].cultureAndValuesRating);
+//                            $.each( $scope.results, function() {                
+//        this["tryit"]="96979";
+//        this["ddd3yit"]=JSON.stringify(data.response.employers[0].cultureAndValuesRating);
+//    });
+                  //   $("#good").text(data.response.employers[0].cultureAndValuesRating);
+                                          var x=data.response.employers[0].cultureAndValuesRating;
+//document.getElementById("good").innerHTML=x.toString();
+// $scope.results.push("loooooooooo");
+// $scope.results["love"]="666";
+//  $scope.results["hate"]=JSON.stringify(data.response.employers[0].cultureAndValuesRating);
+//                  //  $scope.no= 
+//            
+//        $.each( $scope.results, function() {
+//                
+//        this["tryit"]="955979";
+//        this["ddd3yit"]=data.response.employers[0].cultureAndValuesRating.toString();
+//    });
+    });
+
+
+
+  //  $("#goo").text(JSON.stringify($scope.results));
+    };
+    
+    $scope.getProfile=function(){
+            $http({
+            method : "GET",
+            url : "GetProfile",
+            params:{state: "OK"}
+            }).then(function(response) {
+                $scope.skillList =response.data.skills;
+                $scope.id=response.data.id;
+                $("#username").text("Hi,"+response.data.id+" "+response.data.lastName);
+            }, function myError(response) {
+                console.log("error");
+            });
+
+    };
+    
+    $scope.putFav=function(){
+            $http({
+            method : "GET",
+            url : "GetProfile",
+            params:{id: "OK",jobtitle:"ook",company:"iu",url:"abc",imgurl:"def",jobdetail:"wq"}
+            }).then(function(data) {
+            $("#LastName").text("ok");
+ 
+
+            }, function myError(data) {
+                console.log("error");
+            });
+    };
+    
 
 }]);
 
@@ -274,4 +359,11 @@ $(document).ready(function(){
      backToTop();
      
 });
+
+
+  
+   
+ 
+
+
 

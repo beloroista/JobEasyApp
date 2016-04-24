@@ -49,7 +49,7 @@
     <body>
         <div class=" rtl">
             <div id="logo">
-                <span style="font-family:Open Sans;color:#582f37">Hi, Chi Zhang</span>
+                <span  id="username" style="font-family:Open Sans;color:#582f37">Hi, Chi Zhang</span>
                 <!--use username to do identification-->
                 <span style="font-family:Open Sans;color:#582f37"><% //out.println(username); %></span>
                 <a href="/">
@@ -60,7 +60,7 @@
 
             <div id="menu">
                 <a class="home-link" href="main.jsp">My Index</a>
-                <a href="saving.jsp">My Savings</a>
+                <a href="saving.jsp">My Favorites</a>
             </div>
         </div>
 
@@ -138,7 +138,7 @@
                 <div class="res_wrap row" ng-repeat="res in results">
                     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
                         <div  style="margin-left: 50%;height: 100%;width:auto;vertical-align: middle">
-                            <img  style="max-width: 100%;margin-top: 5%;" src="http://media.glassdoor.com/sqll/354/ibm-squarelogo.png" alt=""/>
+                            <img  style="max-width: 100%;margin-top: 5%;" src="{{res.imgurl}}" alt=""/>
                            
                         </div>
                     </div>
@@ -205,6 +205,9 @@
             <p class="text-muted text-center">Copyright @ MyJob. All rights reserved. </p>
             </div>
         </div>
-           
+                <h1 id="LastName">ooooo</h1>
+                <h1 id="goo">iii</h1>
+                 <h1 id="good">isii</h1>
+        
     </body>
 </html>
