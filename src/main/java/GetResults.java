@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,9 +63,30 @@ public class GetResults extends HttpServlet {
                 System.out.println(URL);
                 
                 String a = getJsonString(URL);
-                System.out.println(a);
+                JSONObject joresult = new JSONObject(a);
+                JSONArray resarr=joresult.getJSONArray("results");
+                
+                for (int i = 0; i < resarr.length(); i++) {
+                    JSONObject row = resarr.getJSONObject(i);
+                    String comname=row.getString("company");
+                    String comurl="http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=62289&t.k=h6nXqOo7VRC&action=employers&userip=127.0.0.1&q="+URLEncoder.encode(comname, "UTF-8");
+                    //String encodedcomurl=java.net.URLEncoder.encode(comurl,"UTF-8");
+                    String comjson = getJsonString(comurl);
+                    JSONObject comnamejo = new JSONObject(comjson);
+                    
+                     String x="ss";
+                    if(comnamejo.getJSONObject("response").getJSONArray("employers").length()!=0){
+                    x=comnamejo.getJSONObject("response").getJSONArray("employers").getJSONObject(0).getString("squareLogo");
+            }
+                   row.append("imgurl", x);
 
-                out1.println(a); 
+            }
+                
+                
+                 
+               
+
+                out1.println(joresult.toString()); 
 
         } 
         catch(Exception e){
