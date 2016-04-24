@@ -74,17 +74,28 @@ public class GetResults extends HttpServlet {
                     String comjson = getJsonString(comurl);
                     JSONObject comnamejo = new JSONObject(comjson);
                     
-                     String x="ss";
+                     String imgurl="https://media.glassdoor.com/sql/238230/rdx-squarelogo-1424263255509.png" ; 
+                     String cultureAndValuesRating="N/A";
+                     String compensationAndBenefitsRating="N/A";
+                     String seniorLeadershipRating="N/A";
+                     String careerOpportunitiesRating="N/A";
                     if(comnamejo.getJSONObject("response").getJSONArray("employers").length()!=0){
-                    x=comnamejo.getJSONObject("response").getJSONArray("employers").getJSONObject(0).getString("squareLogo");
-            }
-                   row.append("imgurl", x);
+                    if(comnamejo.getJSONObject("response").getJSONArray("employers").getJSONObject(0).getString("squareLogo").length()!=0)
+                            imgurl=comnamejo.getJSONObject("response").getJSONArray("employers").getJSONObject(0).getString("squareLogo");
+                    cultureAndValuesRating=comnamejo.getJSONObject("response").getJSONArray("employers").getJSONObject(0).getString("cultureAndValuesRating");
+                    seniorLeadershipRating=comnamejo.getJSONObject("response").getJSONArray("employers").getJSONObject(0).getString("seniorLeadershipRating");
+                    careerOpportunitiesRating=comnamejo.getJSONObject("response").getJSONArray("employers").getJSONObject(0).getString("careerOpportunitiesRating");
+                    compensationAndBenefitsRating=comnamejo.getJSONObject("response").getJSONArray("employers").getJSONObject(0).getString("compensationAndBenefitsRating");
+                    }
+                   row.put("imgurl", imgurl);
+                   row.put("cultureAndValuesRating", cultureAndValuesRating);
+                   row.put("seniorLeadershipRating", seniorLeadershipRating);
+                   row.put("careerOpportunitiesRating", careerOpportunitiesRating);
+                   row.put("compensationAndBenefitsRating", compensationAndBenefitsRating);
+                   
 
             }
                 
-                
-                 
-               
 
                 out1.println(joresult.toString()); 
 

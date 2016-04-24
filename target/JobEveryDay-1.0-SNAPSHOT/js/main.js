@@ -5,7 +5,9 @@
  */
 
 
-var skills = ["Java","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
+var skills = ["Jat5va","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
+
+var id;
 
 
 var states = ["AL","AK","AS","AZ","AR","CA","CO","CT","DE","DC","FM","FL","GA","GU","HI","ID","IL","IN","IA","KS","KY",
@@ -18,7 +20,9 @@ var app = angular.module("MyJobEveryDayApp", []);
 
 app.controller('searchController', ['$scope','$http', function searchController($scope,$http) {
     
-    $scope.skillList = ["Java","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
+    $scope.skillList = ["Ja66va","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
+    $scope.results = [];
+    $scope.testresults = [];
 
     $scope.addSkillButton = function(){
        $("#addSkill").show();   
@@ -98,9 +102,17 @@ app.controller('searchController', ['$scope','$http', function searchController(
   
        
    };
+       $scope.testglo = function(){
+      
+        console.log($scope.results);
+        console.log($scope.testresults);
+       
+  
+       
+   };
 
     //search function and ini page 
-    $scope.results = [];
+    
     
     $scope.ini = function(){
         var jt = "fulltime";
@@ -109,24 +121,25 @@ app.controller('searchController', ['$scope','$http', function searchController(
         var start = "0";
         var limit = "10";
         var l = "pittsburgh,pa";
-        var userip = "1.2.3.4";
+        var userip = "1.2.3.4";      
+
         
         $http({
             method : "GET",
-            url : "/GetResults",
+            url : "GetResults",
             params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
             }).then(function(response) {
-                $scope.results = response.data.results;
+                $scope.results = response.data.results;  
+                $("#good").text(JSON.stringify(response.data.results));
 
-            }, function myError(response) {
+
+           }, function myError(response) {
                 console.log("error");
-            });
-
+            });            
         console.log($scope.results);
-        
-      //  getToken();
-       
     }; 
+    
+
     
     $scope.search = function(){
         if($scope.page !== 0){
@@ -188,6 +201,40 @@ app.controller('searchController', ['$scope','$http', function searchController(
 
         console.log($scope.results);
     };
+    
+    // get company detail
+    
+
+    
+    $scope.getProfile=function(){
+            $http({
+            method : "GET",
+            url : "GetProfile",
+            params:{state: "OK"}
+            }).then(function(response) {
+                $scope.skillList =response.data.skills;
+                $scope.id=response.data.id;
+                $("#username").text("Hi,"+response.data.id+" "+response.data.lastName);
+                $("#userID").text(response.data.id);
+            }, function myError(response) {
+                console.log("error");
+            });
+
+    };
+    
+    $scope.putFav=function(){
+            $http({
+            method : "GET",
+            url : "PutFav",
+            params:{id: "rrOK",jobtitle:"ook",company:"iu",url:"abc",imgurl:"def",jobdetail:"wq"}
+            }).then(function(data) {
+            $("#LastName").text("ok"); 
+
+            }, function myError(data) {
+                console.log("error");
+            });
+    };
+    
 
 }]);
 
@@ -246,12 +293,31 @@ function backToTop(){
 
 //save function  !!!! important
 function clickHeart(){
+
     var a = this.childNodes;
     var b = a[0];
     var classNameNow = b.className;
     if(classNameNow ==="fa fa-heart-o fa-2x"){
        $(b).attr("class","fa fa-heart fa-2x");
        //function to save this job, you can use ajax using jQuery or javascript to finish this function
+       
+           var jobputfav = {id: "OtK",jobtitle:"ook",company:"iu",url:"abc",imgurl:"def",jobdetail:"wq"};
+        $.ajax({
+        url: "PutFav",
+        type: 'POST',
+        data: jobputfav,
+   // data: JSON.stringify(jobputfav),
+      //  dataType:'json',    
+        success: function (data) {
+            $("#newCity").typeahead('destroy');
+            $("#newCity").typeahead({source:data});
+            console.log(state+","+data[0]);
+            
+        },
+     error: function() {
+           console.log("error");
+       }
+    });
     }else{
         $(b).attr("class","fa fa-heart-o fa-2x");
        //function to unsave this job
@@ -274,4 +340,29 @@ $(document).ready(function(){
      backToTop();
      
 });
+
+function gosh(){
+    var jobcity = {state: state};
+    $.ajax({
+        url: "PufFav",
+        type: 'POST',
+        data: JSON.stringify(jobcity),
+        dataType:'json',  
+        success: function (data) {
+            $("#newCity").typeahead('destroy');
+            $("#newCity").typeahead({source:data});
+            console.log(state+","+data[0]);
+            
+        },
+     error: function() {
+           console.log("error");
+       }
+    });;
+}
+
+  
+   
+ 
+
+
 

@@ -6,6 +6,7 @@
 
 
 var skills = ["Jat5va","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
+
 var id;
 
 
@@ -19,7 +20,9 @@ var app = angular.module("MyJobEveryDayApp", []);
 
 app.controller('searchController', ['$scope','$http', function searchController($scope,$http) {
     
-    $scope.skillList = ["Ja66va","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];;
+    $scope.skillList = ["Ja66va","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
+    $scope.results = [];
+    $scope.testresults = [];
 
     $scope.addSkillButton = function(){
        $("#addSkill").show();   
@@ -99,9 +102,17 @@ app.controller('searchController', ['$scope','$http', function searchController(
   
        
    };
+       $scope.testglo = function(){
+      
+        console.log($scope.results);
+        console.log($scope.testresults);
+       
+  
+       
+   };
 
     //search function and ini page 
-    $scope.results = [];
+    
     
     $scope.ini = function(){
         var jt = "fulltime";
@@ -118,31 +129,17 @@ app.controller('searchController', ['$scope','$http', function searchController(
             url : "GetResults",
             params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
             }).then(function(response) {
-                $scope.results = response.data.results;             
-                
-            }, function myError(response) {
-                console.log("error");
-            });
-            
-            console.log($scope.results);
-            // $scope.getCompanyDetail();
-            
-//        var url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=62289&t.k=h6nXqOo7VRC&action=employers&q="+"IBM"+"&userip=127.0.0.1&callback=JSON_CALLBACK";
-//        $http.jsonp(url)
-//        .success(function(data){
-//        $scope.no= data.response.employers[0].cultureAndValuesRating;
-//        $("#good").text($scope.no);
-//    });
-//        $.each( $scope.results, function() {
-//                
-//        this["tryit"]="96979";
-//        this["ddd3yit"]=$scope.no;
-//    });
- //   $("#goo").text(JSON.stringify($scope.results));
+                $scope.results = response.data.results;  
+                $("#good").text(JSON.stringify(response.data.results));
 
-        
-       
+
+           }, function myError(response) {
+                console.log("error");
+            });            
+        console.log($scope.results);
     }; 
+    
+
     
     $scope.search = function(){
         if($scope.page !== 0){
@@ -207,42 +204,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
     
     // get company detail
     
-    $scope.getCompanyDetail=function (){
-        
 
-//        ////        var cultureAndValuesRating=data.response.employers[0].cultureAndValuesRating;
-//////          var seniorLeadershipRating=data.response.employers[0].seniorLeadershipRating;
-//////          var compensationAndBenefitsRating=data.response.employers[0].compensationAndBenefitsRating;
-//////          var careerOpportunitiesRating=data.response.employers[0].careerOpportunitiesRating;
-////          var imgurl=data.response.employers[0].squareLogo;
-
-        var url = "http://api.glassdoor.com/api/api.htm?v=1&format=json&t.p=62289&t.k=h6nXqOo7VRC&action=employers&q="+"IBM"+"&userip=127.0.0.1&callback=JSON_CALLBACK";
-                $http.jsonp(url)
-                .success(function(data){
-//                   $scope.results["hate"]=JSON.stringify(data.response.employers[0].cultureAndValuesRating);
-//                            $.each( $scope.results, function() {                
-//        this["tryit"]="96979";
-//        this["ddd3yit"]=JSON.stringify(data.response.employers[0].cultureAndValuesRating);
-//    });
-                  //   $("#good").text(data.response.employers[0].cultureAndValuesRating);
-                                          var x=data.response.employers[0].cultureAndValuesRating;
-//document.getElementById("good").innerHTML=x.toString();
-// $scope.results.push("loooooooooo");
-// $scope.results["love"]="666";
-//  $scope.results["hate"]=JSON.stringify(data.response.employers[0].cultureAndValuesRating);
-//                  //  $scope.no= 
-//            
-//        $.each( $scope.results, function() {
-//                
-//        this["tryit"]="955979";
-//        this["ddd3yit"]=data.response.employers[0].cultureAndValuesRating.toString();
-//    });
-    });
-
-
-
-  //  $("#goo").text(JSON.stringify($scope.results));
-    };
     
     $scope.getProfile=function(){
             $http({
@@ -253,6 +215,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
                 $scope.skillList =response.data.skills;
                 $scope.id=response.data.id;
                 $("#username").text("Hi,"+response.data.id+" "+response.data.lastName);
+                $("#userID").text(response.data.id);
             }, function myError(response) {
                 console.log("error");
             });
@@ -262,11 +225,10 @@ app.controller('searchController', ['$scope','$http', function searchController(
     $scope.putFav=function(){
             $http({
             method : "GET",
-            url : "GetProfile",
-            params:{id: "OK",jobtitle:"ook",company:"iu",url:"abc",imgurl:"def",jobdetail:"wq"}
+            url : "PutFav",
+            params:{id: "rrOK",jobtitle:"ook",company:"iu",url:"abc",imgurl:"def",jobdetail:"wq"}
             }).then(function(data) {
-            $("#LastName").text("ok");
- 
+            $("#LastName").text("ok"); 
 
             }, function myError(data) {
                 console.log("error");
@@ -331,12 +293,31 @@ function backToTop(){
 
 //save function  !!!! important
 function clickHeart(){
+
     var a = this.childNodes;
     var b = a[0];
     var classNameNow = b.className;
     if(classNameNow ==="fa fa-heart-o fa-2x"){
        $(b).attr("class","fa fa-heart fa-2x");
        //function to save this job, you can use ajax using jQuery or javascript to finish this function
+       
+           var jobputfav = {id: "OtK",jobtitle:"ook",company:"iu",url:"abc",imgurl:"def",jobdetail:"wq"};
+        $.ajax({
+        url: "PutFav",
+        type: 'POST',
+        data: jobputfav,
+   // data: JSON.stringify(jobputfav),
+      //  dataType:'json',    
+        success: function (data) {
+            $("#newCity").typeahead('destroy');
+            $("#newCity").typeahead({source:data});
+            console.log(state+","+data[0]);
+            
+        },
+     error: function() {
+           console.log("error");
+       }
+    });
     }else{
         $(b).attr("class","fa fa-heart-o fa-2x");
        //function to unsave this job
@@ -360,6 +341,24 @@ $(document).ready(function(){
      
 });
 
+function gosh(){
+    var jobcity = {state: state};
+    $.ajax({
+        url: "PufFav",
+        type: 'POST',
+        data: JSON.stringify(jobcity),
+        dataType:'json',  
+        success: function (data) {
+            $("#newCity").typeahead('destroy');
+            $("#newCity").typeahead({source:data});
+            console.log(state+","+data[0]);
+            
+        },
+     error: function() {
+           console.log("error");
+       }
+    });;
+}
 
   
    

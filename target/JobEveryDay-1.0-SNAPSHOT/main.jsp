@@ -49,7 +49,7 @@
     <body>
         <div class=" rtl">
             <div id="logo">
-                <span style="font-family:Open Sans;color:#582f37">Hi, Chi Zhang</span>
+                <span  id="username" style="font-family:Open Sans;color:#582f37">Hi, Chi Zhang</span>
                 <!--use username to do identification-->
                 <span style="font-family:Open Sans;color:#582f37"><% //out.println(username); %></span>
                 <a href="/">
@@ -60,7 +60,7 @@
 
             <div id="menu">
                 <a class="home-link" href="main.jsp">My Index</a>
-                <a href="saving.jsp">My Savings</a>
+                <a href="saving.jsp">My Favorites</a>
             </div>
         </div>
 
@@ -138,7 +138,7 @@
                 <div class="res_wrap row" ng-repeat="res in results">
                     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
                         <div  style="margin-left: 50%;height: 100%;width:auto;vertical-align: middle">
-                            <img  style="max-width: 100%;margin-top: 5%;" src="http://media.glassdoor.com/sqll/354/ibm-squarelogo.png" alt=""/>
+                            <img  style="max-width: 100%;margin-top: 5%;" src={{res.imgurl}} alt=""/>
                            
                         </div>
                     </div>
@@ -150,19 +150,19 @@
                         <div class = "res_company res_company_details ">
                             <div class=" row ratings" style="display:none">
                                 <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12 company_rating">
-                                    <span class="rating_des">Culture And Values Rating:</span> <span class="rating_res">{{res.company}}</span>
+                                    <span class="rating_des">Culture And Values Rating:</span> <span class="rating_res">{{res.cultureAndValuesRating}}</span>
                                 </div>
                                 <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12 company_rating">
-                                    <span class="rating_des">Senior Leadership Rating:</span> <span  class="rating_res">{{res.company}}</span>
+                                    <span class="rating_des">Senior Leadership Rating:</span> <span  class="rating_res">{{res.seniorLeadershipRating}}</span>
 
                                 </div>
                             </div>
                             <div class="row ratings" style="display:none">
                                 <div class="col-lg-4 col-md-5 col-sm-5 col-xs-12 company_rating">
-                                    <span class="rating_des">Compensation And Benefits Rating:</span> <span  class="rating_res">{{res.company}}</span>
+                                    <span class="rating_des">Compensation And Benefits Rating:</span> <span  class="rating_res">{{res.compensationAndBenefitsRating}}</span>
                                 </div>
                                 <div class=" company_rating col-lg-4 col-md-5 col-sm-5 col-xs-12 ">
-                                    <span class="rating_des">Work Life Balance Rating:</span> <span  class="rating_res">{{res.company}}</span>
+                                    <span class="rating_des">Career Opportunities Rating:</span> <span  class="rating_res">{{res.careerOpportunitiesRating}}</span>
                                 </div>
                             </div>
                         </div>
@@ -175,7 +175,7 @@
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                         <div class="container" style="margin-top: 10%">
-                            <a class="hearts" onclick="clickHeart.call(this)"><i class="fa fa-heart-o fa-2x" aria-hidden="true" ></i></a>
+                            <a class="hearts" ng-click="putFav()"><i class="fa fa-heart-o fa-2x" aria-hidden="true" ></i></a>
                         </div>
                         
                     </div>
@@ -205,6 +205,7 @@
             <p class="text-muted text-center">Copyright @ MyJob. All rights reserved. </p>
             </div>
         </div>
-           
+    
+        
     </body>
 </html>

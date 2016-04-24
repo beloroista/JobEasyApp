@@ -114,6 +114,7 @@ public class GetToken extends HttpServlet {
                 HttpSession session=request.getSession(true);
                 userBean ub =new userBean();
                 ub.setprofile(jofile);
+                ub.seturl(strskill);
                 session.setAttribute("ub",ub); 
                 
              RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/main.jsp");
