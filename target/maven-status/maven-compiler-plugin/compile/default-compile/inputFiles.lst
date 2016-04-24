@@ -1,3 +1,4 @@
+/Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/DeleteFav.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/GetResults.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/CookieList.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/HTTPTokener.java
@@ -5,13 +6,18 @@
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/JSONString.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/Test.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/Cookie.java
+/Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/GetProfile.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/GetCities.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/JSONObject.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/XML.java
+/Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/GetFav.java
+/Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/userBean.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/CDL.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/JSONTokener.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/JSONArray.java
+/Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/PutFav.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/JSONException.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/HTTP.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/JSONWriter.java
 /Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/org/json/JSONStringer.java
+/Users/zhangqian/NetBeansProjects/JobEveryDay/src/main/java/GetToken.java

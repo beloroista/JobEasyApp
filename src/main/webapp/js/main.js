@@ -5,10 +5,9 @@
  */
 
 
-var skills = ["Jat5va","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
+var skills = ["JavaScript","JQuery", "HTML"];
 
 var id;
-
 
 var states = ["AL","AK","AS","AZ","AR","CA","CO","CT","DE","DC","FM","FL","GA","GU","HI","ID","IL","IN","IA","KS","KY",
     "LA","ME","MH","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND" ,"MP" ,"OH","OK","OR","PW",
@@ -20,7 +19,7 @@ var app = angular.module("MyJobEveryDayApp", []);
 
 app.controller('searchController', ['$scope','$http', function searchController($scope,$http) {
     
-    $scope.skillList = ["Ja66va","JavaScript","JQuery", "HTML","CSS","AngularJS","D3","SQL","Sring","Algorithm"];
+    $scope.skillList = ["JavaScript","JQuery", "HTML"];
     $scope.results = [];
     $scope.testresults = [];
 
@@ -38,6 +37,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
     
     $scope.deleteSkillButton = function(){
         var minus = $("#minusSkill");
+        $("#minusSkill").hide();
         minus.after("<div id='delWrap'><span style='margin-left:15px'>Please Click to delete the skill you want! and click <span> <a id = 'finish' ng-click='finish()' style='margin-left:20px'><i ng-click= 'finish()' class='fa fa-check fa-lg'></i></a><span style='margin-left:15px'> to finish <span></div>");
         $(".skills").attr("class","skills label label-danger");
         $(".skills").attr("ng-click","alert('hahah');");
@@ -64,6 +64,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
         
         
         $("#finish").click(function(){
+            $("#minusSkill").show();
             $("#delWrap").hide();
             $(".skills").attr("class","skills label label-primary  ng-binding ng-scope");
              $(".skills").unbind();
@@ -72,26 +73,6 @@ app.controller('searchController', ['$scope','$http', function searchController(
     
     
     };
-
-    
-//    $scope.addLocationButton = function(){
-//        
-//        $scope.locationList.push({state:$("#newState").val(),city:$("#newCity").val()});
-//        $scope.locations.push($("#newCity").val()+", "+$("#newState").val());
-//        
-//
-//    };
-//   
-//    $scope.getlocationList = function(){
-//       if($scope.locations.length === 0){
-//           $("#locationTap").hide();
-//           //console.log("iniLocation");
-//       }else{
-//            $("#locationTap").show();
-//       }
-//        return $scope.locations;
-//    };
-    
 
     $scope.togg = function(){
         var a = this;
@@ -102,7 +83,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
   
        
    };
-       $scope.testglo = function(){
+    $scope.testglo = function(){
       
         console.log($scope.results);
         console.log($scope.testresults);
@@ -115,12 +96,13 @@ app.controller('searchController', ['$scope','$http', function searchController(
     
     
     $scope.ini = function(){
+        
         var jt = "fulltime";
         var q = "software engineer";
         var sort ="relevance";
         var start = "0";
         var limit = "10";
-        var l = "pittsburgh,pa";
+        var l = "san jose,ca";
         var userip = "1.2.3.4";      
 
         
@@ -139,15 +121,62 @@ app.controller('searchController', ['$scope','$http', function searchController(
         console.log($scope.results);
     }; 
     
-
+//    $scope.ini = function(){
+//          $http({
+//            method : "GET",
+//            url : "GetProfile",
+//            params:{state: "OK"}
+//            }).then(function(response) {
+//                $scope.skillList =response.data.skills;
+//                
+//                $scope.id=response.data.id;
+//                $("#username").text("Hi,"+response.data.id+" "+response.data.lastName);
+//                $("#userID").text(response.data.id);
+//                var jt = "fulltime";
+//                var q = getStringSkills($scope.skillList);
+//                q = q.substring(1,q.length+1);
+//            var sort ="relevance";
+//            var start = "0";
+//            var limit = "10";
+//            var l = "san jose,ca";
+//            var userip = "1.2.3.4";      
+//
+//        
+//        $http({
+//            method : "GET",
+//            url : "GetResults",
+//            params:{jt:jt,q:q,sort:sort,start:start,limit:limit,l:l,userip:userip}
+//            }).then(function(response) {
+//                $scope.results = response.data.results;  
+//                $("#good").text(JSON.stringify(response.data.results));
+//                
+//
+//           }, function myError(response) {
+//                console.log("error");
+//            });            
+//                
+//            }, function myError(response) {
+//                console.log("error");
+//            });
+//
+//       
+//        console.log($scope.results);
+//    }; 
     
     $scope.search = function(){
+        
         if($scope.page !== 0){
             console.log($scope.page);
             $scope.page === 10;
         }
+        
+        var skills = getSkillsData();
+        
+        var q1 = getStringSkills(skills);
+   
         var jt = "fulltime";
-        var q = $("#JobTitle").val();
+        var q = q1 +" " +$("#JobTitle").val();
+        q = q.substring(1,q.length+1);
         var sort ="relevance";
         var start = "0";
         var limit = "10";
@@ -173,14 +202,17 @@ app.controller('searchController', ['$scope','$http', function searchController(
     $scope.page = 10;
     $scope.loadmore = function(){
         $scope.page = $scope.page + 5;
+        var skills = getSkillsData();   
+        var q1 = getStringSkills(skills);
         var jt = "fulltime";
-        var q = $("#JobTitle").val();
+        var q = q1 +" " +$("#JobTitle").val();
+        q = q.substring(1,q.length+1);
+        console.log(q);
         var sort ="relevance";
         var start = "0";
         var limit = $scope.page;
         var l = $("#newCity").val()+","+$("#newState").val();
         var userip = "1.2.3.4";
-        //console.log($scope.locations);
         console.log($scope.page);
         var beforeLen = $scope.results.length;
         $http({
@@ -206,7 +238,7 @@ app.controller('searchController', ['$scope','$http', function searchController(
     
 
     
-    $scope.getProfile=function(){
+    $scope.getProfileAndIni=function(){
             $http({
             method : "GET",
             url : "GetProfile",
@@ -216,24 +248,26 @@ app.controller('searchController', ['$scope','$http', function searchController(
                 $scope.id=response.data.id;
                 $("#username").text("Hi,"+response.data.id+" "+response.data.lastName);
                 $("#userID").text(response.data.id);
+                
+                
             }, function myError(response) {
                 console.log("error");
             });
 
     };
     
-    $scope.putFav=function(){
-            $http({
-            method : "GET",
-            url : "PutFav",
-            params:{id: "rrOK",jobtitle:"ook",company:"iu",url:"abc",imgurl:"def",jobdetail:"wq"}
-            }).then(function(data) {
-            $("#LastName").text("ok"); 
-
-            }, function myError(data) {
-                console.log("error");
-            });
-    };
+//    $scope.putFav=function(){
+//            $http({
+//            method : "GET",
+//            url : "PutFav",
+//            params:{id: "rrOK",jobtitle:"ook",company:"iu",url:"abc",imgurl:"def",jobdetail:"wq"}
+//            }).then(function(data) {
+//            $("#LastName").text("ok"); 
+//
+//            }, function myError(data) {
+//                console.log("error");
+//            });
+//    };
     
 
 }]);
@@ -333,6 +367,31 @@ function toggleInfo(){
     $(this).children(".res_company_details").children(".ratings").toggle();
 }
 
+function getSkillsData(){
+    var skills = [];
+    var a = $(".skills");
+    var size = a.length;
+
+    for (var i=0;i<size;i++)
+    {
+        if(a[i].style.display === "none"){
+            continue;
+        }
+        skills.push(a[i].innerHTML);
+    }
+   
+    return skills;  
+}
+
+function getStringSkills(s){
+    var res = "";
+    for (var i=0;i<s.length;i++)
+    {
+        res = res+" " +s[i] + " "+ "or";
+    }
+    return res;
+}
+
 $(document).ready(function(){   
      $("#addSkill").hide();
      stateTypeAHead();
@@ -341,24 +400,6 @@ $(document).ready(function(){
      
 });
 
-function gosh(){
-    var jobcity = {state: state};
-    $.ajax({
-        url: "PufFav",
-        type: 'POST',
-        data: JSON.stringify(jobcity),
-        dataType:'json',  
-        success: function (data) {
-            $("#newCity").typeahead('destroy');
-            $("#newCity").typeahead({source:data});
-            console.log(state+","+data[0]);
-            
-        },
-     error: function() {
-           console.log("error");
-       }
-    });;
-}
 
   
    

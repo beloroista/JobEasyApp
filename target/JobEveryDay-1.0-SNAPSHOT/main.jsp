@@ -175,7 +175,7 @@
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                         <div class="container" style="margin-top: 10%">
-                            <a class="hearts" ng-click="putFav()"><i class="fa fa-heart-o fa-2x" aria-hidden="true" ></i></a>
+                            <a class="hearts" onclick="clickHeart.call(this)"><i class="fa fa-heart-o fa-2x" aria-hidden="true" ></i></a>
                         </div>
                         
                     </div>
