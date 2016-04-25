@@ -138,13 +138,13 @@
                 <div class="res_wrap row" ng-repeat="res in results">
                     <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
                         <div  style="margin-left: 50%;height: 100%;width:auto;vertical-align: middle">
-                            <img  style="max-width: 100%;margin-top: 5%;" src={{res.imgurl}} alt=""/>
+                            <img  class = "company_img"style="max-width: 100%;margin-top: 5%;" src={{res.imgurl}} alt=""/>
                            
                         </div>
                     </div>
                     <div class="col-lg-8 col-md-7 col-sm-7 col-xs-6">
-                        <div>
-                            <a style="display: inline" href="{{res.url}}"><div class="res_title container">{{res.jobtitle}}</div></a>
+                        <div calss='res_company container jobTitle'>
+                            <a style="display: inline" id='url'href="{{res.url}}"><div class="res_title container">{{res.jobtitle}}</div></a>
                         </div>
                         <div class=" res_company container" onclick="toggleInfo.call(this)" ><a type="bottom">{{res.company}}</a>
                         <div class = "res_company res_company_details ">

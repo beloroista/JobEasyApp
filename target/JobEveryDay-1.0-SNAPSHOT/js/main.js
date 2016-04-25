@@ -329,13 +329,38 @@ function backToTop(){
 function clickHeart(){
 
     var a = this.childNodes;
+    var b = this.parentNode.parentNode.parentNode.childNodes;
+    var c = b[3];
+    var img = b[1];
+    var img1 = img.getElementsByClassName("company_img");
+    var img2 = img1[0].src;
+
+    
+    var d = c.childNodes;
+    
+    var f = d[1].childNodes;
+    var g = f[1].childNodes;
+    var h = c.getElementsByClassName("res_location");
+    var o = h[0];
+    
+    var p = c.getElementsByClassName("res_des");
+    var p1 =p[0].getElementsByTagName("P");
+    var p2 = p1[0];
+    
+    var name = c.getElementsByClassName("res_company");
+    var name1 = name[0].getElementsByTagName("a");
+
+    
     var b = a[0];
     var classNameNow = b.className;
+    
+    
+    //console.log(g[0].innerHTML,name1[0].innerHTML,f[1].getAttribute("href"),img2,o.innerHTML,p2.innerHTML);
     if(classNameNow ==="fa fa-heart-o fa-2x"){
        $(b).attr("class","fa fa-heart fa-2x");
        //function to save this job, you can use ajax using jQuery or javascript to finish this function
        
-           var jobputfav = {id: "OtK",jobtitle:"ook",company:"iu",url:"abc",imgurl:"def",jobdetail:"wq"};
+        var jobputfav = {jobtitle:g[0].innerHTML,company:name1[0].innerHTML,url:f[1].getAttribute("href"),imgurl:img2,location:o.innerHTML,jobdetail:p2.innerHTML};
         $.ajax({
         url: "PutFav",
         type: 'POST',
@@ -354,8 +379,30 @@ function clickHeart(){
     });
     }else{
         $(b).attr("class","fa fa-heart-o fa-2x");
-       //function to unsave this job
+       
+       
+    var a = this;
+    var a = this.childNodes;
+    var b = this.parentNode.parentNode.parentNode.childNodes;
+    var c = b[3];
+    var d = c.childNodes;
     
+    var f = d[1].childNodes;
+    console.log(f[1].getAttribute("href"));
+    var url = f[1].getAttribute("href");
+            $.ajax({
+                type:"POST",
+                url:"/GetFav",
+                data:{url:url},
+                
+                success:function(msg){
+                    
+                   
+                }
+            });
+    
+       
+        
     }
     
     
